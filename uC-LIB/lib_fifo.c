@@ -37,7 +37,8 @@ void CFifoCreate(scFifo * psFifo,CPU_INT08U * pbuff,CPU_INT16U buff_size,CFifoWr
 *返回值:
 *备  注:
 *******************************************************************************/
-inline void DataDec(scFifo * psFifo)
+#pragma inline
+void DataDec(scFifo * psFifo)
 {
   CPU_SR_ALLOC();
   CPU_CRITICAL_ENTER();
@@ -54,7 +55,8 @@ inline void DataDec(scFifo * psFifo)
 *返回值:
 *备  注:
 *******************************************************************************/
-inline void DataInc(scFifo * psFifo)
+#pragma inline
+void DataInc(scFifo * psFifo)
 {
   CPU_SR_ALLOC();
   CPU_CRITICAL_ENTER();

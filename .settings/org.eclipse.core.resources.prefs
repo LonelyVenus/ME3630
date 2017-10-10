@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
+encoding//BSP/bsp_save/bsp_chip_save.c=UTF-8
+encoding//BSP/bsp_save/bsp_chip_save.h=UTF-8
 encoding//BSP/bsp_uart.c=UTF-8
+encoding//LTEModule/BaseDriver/ME3630_Uart.c=UTF-8
 encoding//uC-LIB/lib_fifo.c=UTF-8
 encoding//uC-LIB/lib_fifo.h=UTF-8

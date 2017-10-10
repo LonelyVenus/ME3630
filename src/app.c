@@ -2,7 +2,7 @@
 *********************************************************************************************************
 *                                              EXAMPLE CODE
 *
-*                          (c) Copyright 2003-2013; Micrium, Inc.; Weston, FL
+*                             (c) Copyright 2009; Micrium, Inc.; Weston, FL
 *
 *               All rights reserved.  Protected by international copyright laws.
 *               Knowledge of the source code may NOT be used to develop a similar product.
@@ -24,8 +24,8 @@
 *
 * Filename      : app.c
 * Version       : V1.00
-* Programmer(s) : EHS
-*                 DC
+* Programmer(s) : JJL
+                  EHS
 *********************************************************************************************************
 */
 
@@ -36,42 +36,43 @@
 */
 
 #include <includes.h>
+#include "bsp_uart.h"
+#include "ME3630_Uart.h"
+#include "ME_State_Control.h"
 
 
 /*
 *********************************************************************************************************
-*                                            LOCAL DEFINES
+*                                             LOCAL DEFINES
 *********************************************************************************************************
 */
 
 /*
 *********************************************************************************************************
-*                                                 TCB
+*                                            LOCAL VARIABLES
 *********************************************************************************************************
 */
+
+static  OS_SEM   AppSem;
 
 static  OS_TCB   AppTaskStartTCB;
-
-
-/*
-*********************************************************************************************************
-*                                                STACKS
-*********************************************************************************************************
-*/
-
 static  CPU_STK  AppTaskStartStk[APP_TASK_START_STK_SIZE];
 
+extern  OS_TCB   AppTaskMERunTCB;
+static  CPU_STK  AppTaskMERunStk[APP_TASK_MERUN_STK_SIZE];
 
+static  OS_TCB   AppTaskMETimeTCB;
+static  CPU_STK  AppTaskMETimeStk[APP_TASK_METIME_STK_SIZE];
+
+extern  OS_TCB   Uart2Tcb;
+static  CPU_STK  AppTaskUart2Stk[APP_TASK_UART2_STK_SIZE];
 /*
 *********************************************************************************************************
 *                                         FUNCTION PROTOTYPES
 *********************************************************************************************************
 */
 
-static  void  AppTaskCreate (void);
-static  void  AppObjCreate  (void);
 static  void  AppTaskStart  (void *p_arg);
-
 
 /*
 *********************************************************************************************************
@@ -89,23 +90,21 @@ static  void  AppTaskStart  (void *p_arg);
 int  main (void)
 {
     OS_ERR  err;
-
-
     BSP_IntDisAll();                                            /* Disable all interrupts.                              */
 
     OSInit(&err);                                               /* Init uC/OS-III.                                      */
 
     OSTaskCreate((OS_TCB     *)&AppTaskStartTCB,                /* Create the start task                                */
                  (CPU_CHAR   *)"App Task Start",
-                 (OS_TASK_PTR ) AppTaskStart,
-                 (void       *) 0,
-                 (OS_PRIO     ) APP_TASK_START_PRIO,
+                 (OS_TASK_PTR )AppTaskStart,
+                 (void       *)0,
+                 (OS_PRIO     )APP_TASK_START_PRIO,
                  (CPU_STK    *)&AppTaskStartStk[0],
-                 (CPU_STK_SIZE) APP_TASK_START_STK_SIZE / 10,
-                 (CPU_STK_SIZE) APP_TASK_START_STK_SIZE,
-                 (OS_MSG_QTY  ) 5u,
-                 (OS_TICK     ) 0u,
-                 (void       *) 0,
+                 (CPU_STK_SIZE)APP_TASK_START_STK_SIZE / 10,
+                 (CPU_STK_SIZE)APP_TASK_START_STK_SIZE,
+                 (OS_MSG_QTY  )0,
+                 (OS_TICK     )0,
+                 (void       *)0,
                  (OS_OPT      )(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
                  (OS_ERR     *)&err);
 
@@ -134,71 +133,88 @@ static  void  AppTaskStart (void *p_arg)
     CPU_INT32U  cpu_clk_freq;
     CPU_INT32U  cnts;
     OS_ERR      err;
+    CPU_TS  ts;
 
 
    (void)p_arg;
 
-    BSP_Init();                                                 /* Initialize BSP functions                             */
-    CPU_Init();
+    OSSemCreate(&AppSem, "Test Sem", 0, &err);
 
-    cpu_clk_freq = BSP_CPU_ClkFreq();                           /* Determine SysTick reference freq.                    */
-    cnts = cpu_clk_freq / (CPU_INT32U)OSCfg_TickRate_Hz;        /* Determine nbr SysTick increments                     */
-    OS_CPU_SysTickInit(cnts);                                   /* Init uC/OS periodic time src (SysTick).              */
-
-    Mem_Init();                                                 /* Initialize Memory Management Module                  */
+    BSP_Init();                                                   /* Initialize BSP functions                         */
+    CPU_Init();                                                   /* Initialize the uC/CPU services                   */
+    ME3630Init();
+    MEIint();
+    cpu_clk_freq = BSP_CPU_ClkFreq();                             /* Determine SysTick reference freq.                */
+    cnts         = cpu_clk_freq / (CPU_INT32U)OSCfg_TickRate_Hz;  /* Determine nbr SysTick increments                 */
+    OS_CPU_SysTickInit(cnts);                                     /* Init uC/OS periodic time src (SysTick).          */
 
 #if OS_CFG_STAT_TASK_EN > 0u
-    OSStatTaskCPUUsageInit(&err);                               /* Compute CPU capacity with no task running            */
+    OSStatTaskCPUUsageInit(&err);                                 /* Compute CPU capacity with no task running        */
 #endif
 
     CPU_IntDisMeasMaxCurReset();
-
-
     
-    AppTaskCreate();                                            /* Create Application Tasks                             */
+    OSTaskCreate((OS_TCB     *)&AppTaskMETimeTCB,                /* Create the start task                                */
+                 (CPU_CHAR   *)"App Task ME Time Control",
+                 (OS_TASK_PTR )METimeTask,
+                 (void       *)0,
+                 (OS_PRIO     )APP_TASK_METIME_PRIO,
+                 (CPU_STK    *)&AppTaskMETimeStk[0],
+                 (CPU_STK_SIZE)APP_TASK_METIME_STK_SIZE / 10,
+                 (CPU_STK_SIZE)APP_TASK_METIME_STK_SIZE,
+                 (OS_MSG_QTY  )0,
+                 (OS_TICK     )0,
+                 (void       *)0,
+                 (OS_OPT      )(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
+                 (OS_ERR     *)&err);
     
-    AppObjCreate();                                             /* Create Application Objects                           */
+    OSTaskCreate((OS_TCB     *)&AppTaskMERunTCB,                /* Create the start task                                */
+                 (CPU_CHAR   *)"App Task ME Run",
+                 (OS_TASK_PTR )MERunTask,
+                 (void       *)0,
+                 (OS_PRIO     )APP_TASK_MERUN_PRIO,
+                 (CPU_STK    *)&AppTaskMERunStk[0],
+                 (CPU_STK_SIZE)APP_TASK_MERUN_STK_SIZE / 10,
+                 (CPU_STK_SIZE)APP_TASK_MERUN_STK_SIZE,
+                 (OS_MSG_QTY  )0,
+                 (OS_TICK     )0,
+                 (void       *)0,
+                 (OS_OPT      )(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
+                 (OS_ERR     *)&err);
     
-    BSP_LED_Off(0);
+    OSTaskCreate((OS_TCB     *)&Uart2Tcb,                /* Create the start task                                */
+                 (CPU_CHAR   *)"App Task Uart2 RX Task",
+                 (OS_TASK_PTR )MEUartRxTask,
+                 (void       *)0,
+                 (OS_PRIO     )APP_TASK_UART2_PRIO,
+                 (CPU_STK    *)&AppTaskUart2Stk[0],
+                 (CPU_STK_SIZE)APP_TASK_UART2_STK_SIZE / 10,
+                 (CPU_STK_SIZE)APP_TASK_UART2_STK_SIZE,
+                 (OS_MSG_QTY  )0,
+                 (OS_TICK     )0,
+                 (void       *)0,
+                 (OS_OPT      )(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
+                 (OS_ERR     *)&err);
+    //BSP_LED_Off(0);
 
-    while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
+    while (DEF_TRUE) {                                            /* Task body, always written as an infinite loop.   */
         //BSP_LED_Toggle(0);
+#if 0
         OSTimeDlyHMSM(0, 0, 0, 100,
                       OS_OPT_TIME_HMSM_STRICT,
                       &err);
+#endif
+        OSSemPend(&AppSem,
+                  100,
+                  OS_OPT_PEND_BLOCKING,
+                  &ts,
+                  &err);
     }
 }
 
 
-/*
-*********************************************************************************************************
-*                                      CREATE APPLICATION TASKS
-*
-* Description:  This function creates the application tasks.
-*
-* Arguments  :  none
-*
-* Returns    :  none
-*********************************************************************************************************
-*/
-
-static  void  AppTaskCreate (void)
-{
-}
 
 
-/*
-*********************************************************************************************************
-*                                      CREATE APPLICATION EVENTS
-*
-* Description:  This function creates the application kernel objects.
-*
-* Arguments  :  none
-*
-* Returns    :  none
-*********************************************************************************************************
-*/
 
-static  void  AppObjCreate (void)
-{
-}
+
+

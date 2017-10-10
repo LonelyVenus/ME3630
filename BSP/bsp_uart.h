@@ -13,7 +13,7 @@
 #ifndef __BSP_UART_H
 #define __BSP_UART_H
 
-#include <cpu.h>
+#include "cpu.h"
 #include <os.h>
 #include "bsp.h"
 #include "stdio.h"

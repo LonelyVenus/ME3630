@@ -19,7 +19,7 @@
 							<option id="com.atollic.truestudio.toolchain_options.mcu.1183791628" name="Microcontroller" superClass="com.atollic.truestudio.toolchain_options.mcu" value="STM32F103VE" valueType="string"/>
 							<option id="com.atollic.truestudio.toolchain_options.vendor.773685353" name="Vendor name" superClass="com.atollic.truestudio.toolchain_options.vendor" value="STMicroelectronics" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.atollic.truestudio.exe.debug.toolchain.platform.592100134" isAbstract="false" name="Debug platform" osList="all" superClass="com.atollic.truestudio.exe.debug.toolchain.platform"/>
-							<builder buildPath="${workspace_loc:/TemplateProject}/Debug" customBuilderProperties="toolChainpathType=1|toolChainpathString=D:\\Program Files (x86)\\Atollic\\TrueSTUDIO for ARM 8.0.0\\ARMTools\\bin|" id="com.atollic.truestudio.mbs.builder1.1591460843" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="com.atollic.truestudio.mbs.builder1"/>
+							<builder buildPath="${workspace_loc:/TemplateProject}/Debug" customBuilderProperties="toolChainpathType=1|toolChainpathString=D:\\Program Files (x86)\\TrueSTUDIO for ARM 8.0.0\\ARMTools\\bin|" id="com.atollic.truestudio.mbs.builder1.1591460843" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="com.atollic.truestudio.mbs.builder1"/>
 							<tool id="com.atollic.truestudio.exe.debug.toolchain.as.2074638523" name="Assembler" superClass="com.atollic.truestudio.exe.debug.toolchain.as">
 								<option id="com.atollic.truestudio.common_options.target.endianess.938392754" name="Endianess" superClass="com.atollic.truestudio.common_options.target.endianess"/>
 								<option id="com.atollic.truestudio.common_options.target.mcpu.318673347" name="Microcontroller" superClass="com.atollic.truestudio.common_options.target.mcpu" value="STM32F103VE" valueType="enumerated"/>
@@ -31,17 +31,19 @@
 									<listOptionValue builtIn="false" value="USE_STDPERIPH_DRIVER"/>
 								</option>
 								<option id="com.atollic.truestudio.as.general.incpath.1576736265" name="Include path" superClass="com.atollic.truestudio.as.general.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/BSP}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/BSP/OS/uCOS-III}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/BSP/ST/STM32/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/BSP/TrueSTUDIO}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uC-CPU}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uC-CPU/ARM-Cortex-M3/GNU}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uC-LIB}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uC-LIB/Ports/ARM-Cortex-M3/GNU}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uCOS-III/Source}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uCOS-III/Ports/ARM-Cortex-M3/Generic/GNU}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP/OS/uCOS-III}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP/ST/STM32/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP/TrueSTUDIO}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uC-CPU}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uC-CPU/ARM-Cortex-M3/GNU}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uC-LIB}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uC-LIB/Ports/ARM-Cortex-M3/GNU}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uCOS-III/Source}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uCOS-III/Ports/ARM-Cortex-M3/Generic/GNU}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/LTEModule/BaseDriver}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP/bsp_save}&quot;"/>
 								</option>
 								<inputType id="com.atollic.truestudio.as.input.1134165801" name="Input" superClass="com.atollic.truestudio.as.input"/>
 							</tool>
@@ -51,18 +53,20 @@
 									<listOptionValue builtIn="false" value="USE_STDPERIPH_DRIVER"/>
 								</option>
 								<option id="com.atollic.truestudio.gcc.directories.select.38026411" name="Include path" superClass="com.atollic.truestudio.gcc.directories.select" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/BSP/OS/uCOS-III}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/BSP/ST/STM32/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/BSP/TrueSTUDIO}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/BSP}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uC-CPU}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uC-CPU/ARM-Cortex-M3/GNU}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uC-LIB}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uC-LIB/Ports/ARM-Cortex-M3/GNU}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uCOS-III/Source}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/uCOS-III/Ports/ARM-Cortex-M3/Generic/GNU}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TemplateProject/BSP/RTCCalendar/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP/OS/uCOS-III}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP/ST/STM32/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP/TrueSTUDIO}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uC-CPU}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uC-CPU/ARM-Cortex-M3/GNU}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uC-LIB}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uC-LIB/Ports/ARM-Cortex-M3/GNU}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uCOS-III/Source}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/uCOS-III/Ports/ARM-Cortex-M3/Generic/GNU}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP/RTCCalendar/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/BSP/bsp_save}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ME3630Project/LTEModule/BaseDriver}&quot;"/>
 								</option>
 								<option id="com.atollic.truestudio.common_options.target.endianess.747686321" name="Endianess" superClass="com.atollic.truestudio.common_options.target.endianess"/>
 								<option id="com.atollic.truestudio.common_options.target.mcpu.1410061095" name="Microcontroller" superClass="com.atollic.truestudio.common_options.target.mcpu" value="STM32F103VE" valueType="enumerated"/>
@@ -121,7 +125,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="BSP/RTCCalendar" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -232,7 +236,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="BSP/RTCCalendar" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -243,11 +247,19 @@
 		<project id="TemplateProject.com.atollic.truestudio.exe.992947620" name="Executable" projectType="com.atollic.truestudio.exe"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/ME3630Project"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/ME3630Project"/>
+		</configuration>
+	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="com.atollic.truestudio.exe.debug.1856947857;com.atollic.truestudio.exe.debug.1856947857.;com.atollic.truestudio.exe.debug.toolchain.gcc.996588391;com.atollic.truestudio.gcc.input.160465091">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.atollic.truestudio.mbs.ARMToolsPerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

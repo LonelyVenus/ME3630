@@ -61,7 +61,7 @@ void UartStartSendData1(void);                 //实际发送数据
 OS_TCB  Uart1Tcb;
 #endif
 
-//涓插彛2閰嶇疆
+
 #if COM2_ENABLE
 uint8_t com2ReciveBuff[com2ReciveBuffSize];
 uint8_t com2SendBuff[com2SendBuffSize];
@@ -69,7 +69,7 @@ void UartStartSendData2(void);
 OS_TCB  Uart2Tcb;
 #endif
 
-//涓插彛3閰嶇疆
+
 #if COM3_ENABLE
 uint8_t com3ReciveBuff[com3ReciveBuffSize];
 uint8_t com3SendBuff[com3SendBuffSize];
@@ -77,7 +77,7 @@ void UartStartSendData3(void);
 OS_TCB  Uart3Tcb;
 #endif
 
-//涓插彛4閰嶇疆
+
 #if COM4_ENABLE
 uint8_t com4ReciveBuff[com4ReciveBuffSize];
 uint8_t com4SendBuff[com4SendBuffSize];
@@ -85,7 +85,7 @@ void UartStartSendData4(void);
 OS_TCB  Uart4Tcb;
 #endif
 
-//涓插彛5閰嶇疆
+
 #if COM5_ENABLE
 uint8_t com5ReciveBuff[com5ReciveBuffSize];
 uint8_t com5SendBuff[com5SendBuffSize];

@@ -31,7 +31,7 @@
 */
 
 #define  MICRIUM_SOURCE
-#include <os.h>
+#include "os.h"
 
 #ifdef VSC_INCLUDE_SOURCE_FILE_NAMES
 const  CPU_CHAR  *os_core__c = "$Id: $";
